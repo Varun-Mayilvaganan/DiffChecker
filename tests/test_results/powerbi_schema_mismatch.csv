@@ -1,0 +1,7 @@
+order_id,customer_name,region,revenue,tax,order_date,status,created_by,modified_date
+2001,Alpha Corp,North,15000,1500,2024-03-01,Closed,admin,2024-03-01 10:00:00
+2002,Beta Inc,South,22000,2200,2024-03-02,Open,user1,2024-03-02 11:30:00
+2003,Gamma LLC,East,18000,1800,2024-03-03,Pending,user2,2024-03-03 09:15:00
+2004,Delta Co,West,31000,3100,2024-03-04,Closed,admin,2024-03-04 14:45:00
+2005,Epsilon Ltd,North,12000,1200,2024-03-05,Open,user1,2024-03-05 16:20:00
+

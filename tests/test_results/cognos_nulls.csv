@@ -1,0 +1,10 @@
+order_id,customer_name,region,revenue,tax,discount,notes
+4001,Company A,North,5000.00,500.00,,Initial order
+4002,Company B,South,7500.00,,100.00,Rush delivery
+4003,Company C,East,,,0.00,Cancelled
+4004,Company D,West,10000.00,1000.00,200.00,
+4005,Company E,,8000.00,800.00,,No region specified
+4006,Company F,South,,,150.00,Pending approval
+4007,,East,6000.00,600.00,0.00,Anonymous order
+4008,Company H,North,9000.00,,,Standard order
+

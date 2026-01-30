@@ -1,0 +1,7 @@
+order_id,customer_name,region,revenue,tax,profit_margin,order_date,status,priority
+2001,Alpha Corp,North,15000.00,1500.00,25.5,2024-03-01,Closed,High
+2002,Beta Inc,South,22000.00,2200.00,30.2,2024-03-02,Open,Medium
+2003,Gamma LLC,East,18000.00,1800.00,28.7,2024-03-03,Pending,Low
+2004,Delta Co,West,31000.00,3100.00,35.1,2024-03-04,Closed,High
+2005,Epsilon Ltd,North,12000.00,1200.00,22.3,2024-03-05,Open,Medium
+

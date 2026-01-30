@@ -1,0 +1,12 @@
+order_id,customer_name,region,product,quantity,revenue,status
+3001,Customer A,North,Product X,100,5000.00,Closed
+3002,Customer B,South,Product Y,150,7500.00,Open
+3003,Customer C,East,Product Z,200,10200.00,Closed
+3004,Customer D,West,Product X,80,4000.00,Closed
+3005,Customer E,North,Product Y,125,6250.00,Open
+3006,Customer F,South,Product Z,175,8750.00,Pending
+3007,Customer G,East,Product X,90,4500.00,Open
+3008,Customer H,West,Product Y,160,8000.00,Open
+3009,Customer I,North,Product Z,210,10500.00,Pending
+3010,Customer J,South,Product X,95,4750.00,Closed
+

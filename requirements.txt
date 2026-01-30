@@ -1,0 +1,12 @@
+streamlit==1.31.0
+pandas==2.2.0
+numpy==1.26.3
+pytest==8.0.0
+mypy==1.8.0
+ruff==0.2.0
+pandas-stubs>=2.0.0
+types-pytz>=2022.1.1
+xlsxwriter>=3.2.0
+openpyxl>=3.1.0
+
+

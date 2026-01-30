@@ -1,0 +1,9 @@
+order_id,customer_name,region,product,quantity,revenue,order_date
+1001,Acme Corp,North,Widget A,10,1500.00,2024-01-15
+1002,Beta Ltd,South,Widget B,5,750.50,2024-01-16
+1003,Gamma Inc,East,Widget A,8,1250.00,2024-01-17
+1004,Delta Co,West,Widget C,12,1800.75,2024-01-18
+1005,Epsilon LLC,South,Widget B,7,900.00,2024-01-19
+1006,Zeta Industries,South,Widget A,15,2250.00,2024-01-20
+
+

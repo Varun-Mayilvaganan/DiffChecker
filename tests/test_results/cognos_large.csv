@@ -1,0 +1,22 @@
+order_id,customer_name,region,product,quantity,unit_price,revenue,tax,discount,order_date,status
+1001,Acme Corp,North,Widget A,100,50.00,5000.00,500.00,0.00,2024-01-15,Closed
+1002,TechStart Inc,South,Widget B,75,120.00,9000.00,900.00,100.00,2024-01-16,Open
+1003,Global Trade,East,Widget C,200,85.50,17100.00,1710.00,0.00,2024-01-17,Closed
+1004,MegaCorp,West,Widget A,150,50.00,7500.00,750.00,250.00,2024-01-18,Pending
+1005,SmallBiz LLC,North,Widget D,50,200.00,10000.00,1000.00,0.00,2024-01-19,Closed
+1006,Enterprise Co,South,Widget B,100,120.00,12000.00,1200.00,200.00,2024-01-20,Open
+1007,StartUp Ltd,East,Widget A,80,50.00,4000.00,400.00,0.00,2024-01-21,Closed
+1008,BigBox Retail,West,Widget C,300,85.50,25650.00,2565.00,500.00,2024-01-22,Closed
+1009,Tech Solutions,North,Widget D,60,200.00,12000.00,1200.00,0.00,2024-01-23,Open
+1010,Global Inc,South,Widget A,120,50.00,6000.00,600.00,100.00,2024-01-24,Pending
+1011,Local Shop,East,Widget B,90,120.00,10800.00,1080.00,0.00,2024-01-25,Closed
+1012,National Corp,West,Widget C,180,85.50,15390.00,1539.00,300.00,2024-01-26,Open
+1013,Regional LLC,North,Widget D,45,200.00,9000.00,900.00,0.00,2024-01-27,Closed
+1014,City Store,South,Widget A,110,50.00,5500.00,550.00,150.00,2024-01-28,Pending
+1015,County Traders,East,Widget B,95,120.00,11400.00,1140.00,0.00,2024-01-29,Closed
+1016,State Business,West,Widget C,220,85.50,18810.00,1881.00,400.00,2024-01-30,Open
+1017,Country Supplies,North,Widget D,55,200.00,11000.00,1100.00,0.00,2024-01-31,Closed
+1018,Metro Trading,South,Widget A,130,50.00,6500.00,650.00,200.00,2024-02-01,Pending
+1019,Urban Retail,East,Widget B,85,120.00,10200.00,1020.00,0.00,2024-02-02,Closed
+1020,Rural Stores,West,Widget C,190,85.50,16245.00,1624.50,350.00,2024-02-03,Open
+
