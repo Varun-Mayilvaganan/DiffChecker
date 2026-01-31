@@ -2,7 +2,7 @@
 
 import sys
 from datetime import datetime
-from io import BytesIO
+from io import BytesIO, StringIO
 from pathlib import Path
 from typing import Any
 
@@ -20,6 +20,54 @@ from validation.file_checks import validate_file_level
 from validation.row_checks import validate_row_level
 from validation.schema_checks import validate_schema
 from validation.stats_checks import validate_column_stats
+
+
+def read_csv_with_encoding(content: bytes, filename: str) -> pd.DataFrame:
+    """
+    Read CSV content with automatic encoding detection.
+    Tries multiple encodings to handle various file sources.
+    """
+    # List of encodings to try (most common first)
+    encodings = [
+        'utf-8',
+        'utf-8-sig',      # UTF-8 with BOM (common from Excel)
+        'utf-16',         # UTF-16 (Excel sometimes uses this)
+        'utf-16-le',      # UTF-16 Little Endian
+        'utf-16-be',      # UTF-16 Big Endian
+        'latin-1',        # ISO-8859-1 (Western European)
+        'cp1252',         # Windows-1252 (Windows default)
+        'iso-8859-1',     # Latin-1
+    ]
+    
+    last_error = None
+    
+    for encoding in encodings:
+        try:
+            # Decode bytes to string
+            text = content.decode(encoding)
+            # Try to parse as CSV
+            df = pd.read_csv(StringIO(text))
+            # If successful, return the dataframe
+            if not df.empty:
+                return df
+        except (UnicodeDecodeError, UnicodeError):
+            continue
+        except pd.errors.EmptyDataError:
+            raise ValueError(f"File '{filename}' appears to be empty")
+        except pd.errors.ParserError as e:
+            last_error = e
+            continue
+        except Exception as e:
+            last_error = e
+            continue
+    
+    # If all encodings failed, provide helpful error message
+    error_msg = f"Could not read file '{filename}'. "
+    if last_error:
+        error_msg += f"Error: {str(last_error)}. "
+    error_msg += "Please ensure the file is a valid CSV with UTF-8, UTF-16, or Latin-1 encoding."
+    
+    raise ValueError(error_msg)
 
 app = FastAPI(
     title="DataSure API",
@@ -63,12 +111,12 @@ async def validate_files(
 ) -> dict[str, Any]:
     """Validate two CSV files and return comparison results."""
     try:
-        # Read CSV files
+        # Read CSV files with automatic encoding detection
         cognos_content = await cognos_file.read()
         powerbi_content = await powerbi_file.read()
 
-        df_cognos = pd.read_csv(BytesIO(cognos_content))
-        df_powerbi = pd.read_csv(BytesIO(powerbi_content))
+        df_cognos = read_csv_with_encoding(cognos_content, cognos_file.filename or "Cognos file")
+        df_powerbi = read_csv_with_encoding(powerbi_content, powerbi_file.filename or "PowerBI file")
 
         # Run all validators
         results: list[ValidationResult] = [
@@ -100,6 +148,14 @@ async def validate_files(
         raise HTTPException(status_code=400, detail="One or both CSV files are empty")
     except pd.errors.ParserError as e:
         raise HTTPException(status_code=400, detail=f"CSV parsing error: {str(e)}")
+    except ValueError as e:
+        # Encoding or file format errors
+        raise HTTPException(status_code=400, detail=str(e))
+    except UnicodeDecodeError as e:
+        raise HTTPException(
+            status_code=400, 
+            detail=f"File encoding error: Unable to read file. Please save your CSV as UTF-8 encoded."
+        )
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Validation error: {str(e)}")
 
@@ -114,12 +170,12 @@ async def export_excel(
 ) -> StreamingResponse:
     """Generate and download Excel validation report."""
     try:
-        # Read CSV files
+        # Read CSV files with automatic encoding detection
         cognos_content = await cognos_file.read()
         powerbi_content = await powerbi_file.read()
 
-        df_cognos = pd.read_csv(BytesIO(cognos_content))
-        df_powerbi = pd.read_csv(BytesIO(powerbi_content))
+        df_cognos = read_csv_with_encoding(cognos_content, cognos_file.filename or "Cognos file")
+        df_powerbi = read_csv_with_encoding(powerbi_content, powerbi_file.filename or "PowerBI file")
 
         # Run all validators
         results: list[ValidationResult] = [
@@ -157,6 +213,13 @@ async def export_excel(
             headers={"Content-Disposition": f"attachment; filename={filename}"},
         )
 
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except UnicodeDecodeError as e:
+        raise HTTPException(
+            status_code=400,
+            detail="File encoding error: Unable to read file. Please save your CSV as UTF-8 encoded."
+        )
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Export error: {str(e)}")
 
